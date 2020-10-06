@@ -1,9 +1,12 @@
 from bst import Node
 from bst import BinarySearchTree
 
-# 8
-#3 9 
-#   11
+#   8
+#  / \
+# 3   9 
+#      \
+#      11
+
 node1 = Node(8)
 node2 = Node(3)
 node3 = Node(9)
@@ -22,20 +25,21 @@ node3.right = node4
 #imagine we are searching for 11
 root = node1
 target = 11
-'''if root.data == target:
-  print("Found it!")
 
-if root.data > target:
-  #look at left child
-  if root.left.data == target:
-    print("Found it!")
+# if root.data == target:
+#   print("Found it!")
 
-if root.data < target:
-  #look at the right ChildProcessError
-  if root.right.data == target:
-    print("Found it")'''
+# elif root.data > target:
+#   #look at left child
+#   if root.left.data == target:
+#     print("Found it!")
 
-'''def search(target, node):
+# elif root.data < target:
+#   #look at the right ChildProcessError
+#   if root.right.data == target:
+#     print("Found it")
+
+def search(target, node):
 
   #base case is we found it or nowhere else to look
   if node is None or node.data == target:
@@ -84,7 +88,7 @@ def insert(node, new_node):
 insert(root, Node(1))
 insert(root, Node(20))
 result = search(20, root)
-print(result.data)'''
+print(result.data)
 
 bst = BinarySearchTree()
 
