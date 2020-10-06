@@ -66,6 +66,13 @@ insert(root, Node(4))
 
 #Extra credit
 #write and explain delete(node, target)
+def delete(node, target):
+  result = search(root, target)
+  if result != None:
+    result.data = None
+    result.left = None
+    result.right = None
+
 
 #TODO: explain in order traversal in video
 
