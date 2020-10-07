@@ -1,45 +1,43 @@
+#!python3
+# Binary Tree Example
 class Node:
-
-  def __init__(self, data):
-    self.data = data
-
-    #left and right will point to other nodes
-    self.left = None
-    self.right = None
-
-node1 = Node(9)
-node2 = Node(3)
-node3 = Node(10)
-
-#building the tree
+   def __init__(self, data):
+     self.data = data
+     # left and right attributes
+     self.left = None
+     self.right = None
+#creating our nodes
+node1 = Node(4)
+node2 = Node(2)
+node3 = Node(6)
+node4 = Node(1)
+node5 = Node(3)
+node6 = Node(5)
+# building our tree
 root = node1
-
 node1.left = node2
 node1.right = node3
+node2.left = node4
+node2.right = node5
+node3.left = node6
 
-#TODO: add a node with data value 12 to be right child of Node(10)
-node4 = Node(12)
-node3.right = node4
 
 #search the tree
 def search(node, target):
-    #base case, stops the recursion
-    #1. once we have looked at everything and didn't find it
-    #2. we have found it!
-    if node is None: #1
-        return None
-    if node.data == target: #2
-        return node
-    #recursive case, calls function within itself
-    if node.data < target: #go right
-        return search(node.right, target)
-    else: #go left
-        return search(node.left, target)
-    
+  if node is None: # checks if there are no items left to search
+    return None
+  elif node.data == target: #checks if the node is our target
+    return node
+  elif node.data < target: #go right
+    return search(node.right, target)
+  else: #go left
+    return search(node.left, target)
+"""The function will recursively calls itself and check if the value is higher or lower then what we are looking for. For example, we call the function looking for 5. The funcion will figure out that our root node(node1.data == 4) is too small, and therefore go right as a result. Then when it reads our node3.data, it will determine that it is less than 6, and go left as a result. Finally finding 5, and returning the result."""
+result = search(root, 5)
 
-result = search(root, 12)
-
-def insert(node, new_node): 
+# now lets insert a new node into our tree
+node7 = Node(7)
+def insert(node, new_node):
   if new_node.data > node.data:
     #put new child on right if space
     if node.right is None:
@@ -56,26 +54,31 @@ def insert(node, new_node):
     #otherwise keep looking
     else:
       insert(node.left, new_node)
+"""Here we created a Node with the value of 7. This function will recursively call itself until it finds an open spot for 7, that makes sense in the database. Simular to our search funtion, it will check if our node's value/data belongs on the left or right side based on how big it is -if it cannot find an empty space for our node. You can choose any node to try and insert to, but forr this example we have used the root node to cycle threw the entire tree and place itself in the correct place."""
+insert(root, node7)
+insert(root, Node(8))
 
-insert(root, Node(4))
 
-#print(node2.right.data)
-
-#TODO: Trees assignment
-#Make a video explaining search and insert
-
-#Extra credit
-#write and explain delete(node, target)
 def delete(node, target):
-  result = search(root, target)
-  if result != None:
-    result.data = None
+  result = search(node, target - 1)
+  if result.left == target:
     result.left = None
+  elif result.right == target:
     result.right = None
+  # does a second search to try and find a parent node
+  result = search(node, target + 1)
+  if result.left == target:
+    result.left = None
+  elif result.right == target:
+    result.right = None
+  # else, we print a not found response
+  else:
+    print(f"Could not find {target} in Tree.")
+"""This will only work with a int based binary tree. But here we take advantage of our search function in order to find the previous node. Becuase we are trying to delete 8, we have to look for the node with a value of 7. Note that ff we were looking for 5, we would have to look for the parnenting node with a value of 6."""
+delete(root, 8)
 
 
-#TODO: explain in order traversal in video
-
+# Finally we can print our tree out.
 def in_order_traversal(node):
   if node is not None:
     #traverse
@@ -84,6 +87,4 @@ def in_order_traversal(node):
     in_order_traversal(node.right)
   else:
     return None
-
 in_order_traversal(root)
-#Extra credit write and explain pre order and post order
